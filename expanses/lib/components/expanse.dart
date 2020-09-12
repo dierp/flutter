@@ -4,51 +4,44 @@ import 'package:intl/intl.dart';
 
 class Expanse extends StatelessWidget {
   final Transaction expanse;
+  final Function(String) _removeExpanse;
 
-  Expanse(this.expanse);
+  Expanse(this.expanse, this._removeExpanse);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-        child: Row(
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.purple[50],
-              width: 2,
-            ),
-          ),
-          child: Text(
-            'R\$ ${expanse.value.toStringAsFixed(2)}',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-              color: Colors.purple,
+      elevation: 5,
+      margin: EdgeInsets.symmetric(
+        vertical: 8,
+        horizontal: 5,
+      ),
+      child: ListTile(
+        leading: CircleAvatar(
+          radius: 30,
+          child: Padding(
+            padding: EdgeInsets.all(6),
+            child: FittedBox(
+              child: Text('R\$ ${expanse.value.toStringAsFixed(2)}'),
             ),
           ),
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              expanse.title,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              DateFormat('MMM,d y').format(expanse.createdAt),
-              style: TextStyle(
-                color: Colors.grey[600],
-              ),
-            )
-          ],
+        title: Text(
+          expanse.title,
+          style: Theme.of(context).textTheme.headline6,
         ),
-      ],
-    ));
+        subtitle: Text(
+          DateFormat('MMM,d y').format(expanse.createdAt),
+          style: TextStyle(
+            color: Colors.grey[600],
+          ),
+        ),
+        trailing: IconButton(
+          icon: Icon(Icons.delete),
+          color: Theme.of(context).errorColor,
+          onPressed: () => _removeExpanse(expanse.id),
+        ),
+      ),
+    );
   }
 }
