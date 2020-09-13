@@ -105,25 +105,40 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Personal Expanses'),
-        // backgroundColor: Colors.purple,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => _openTransacionFormModal(context),
-          ),
-        ],
+    final bool _isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+    final _rem = MediaQuery.of(context).textScaleFactor;
+    final _appBar = AppBar(
+      title: Text(
+        'Personal Expanses',
+        style: TextStyle(fontSize: _rem * 20),
       ),
+      // backgroundColor: Colors.purple,
+      actions: [
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => _openTransacionFormModal(context),
+        ),
+      ],
+    );
+    final _availableHeight = MediaQuery.of(context).size.height -
+        _appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
+
+    return Scaffold(
+      appBar: _appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Chart(_transactions),
             Container(
-              height: 480,
+              height: _availableHeight * (_isLandscape ? 0.5 : 0.3),
+              padding: const EdgeInsets.all(10),
+              child: Chart(_transactions),
+            ),
+            Container(
+              height: _availableHeight * (_isLandscape ? 0.5 : 0.7),
               child: _transactions.isEmpty
                   ? Column(
                       children: [

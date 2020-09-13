@@ -42,12 +42,13 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Card(
-        elevation: 6,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+    return LayoutBuilder(builder: (ctx, constraints) {
+      return Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(5),
+        // height: MediaQuery.of(context).size.height * 0.2,
+        child: Card(
+          elevation: 6,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -58,14 +59,14 @@ class Chart extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                        height: 20,
+                        height: constraints.maxHeight * 0.15,
                         child: FittedBox(
                           child:
                               Text((e['value'] as double).toStringAsFixed(2)),
                         ),
                       ),
                       Container(
-                        height: 60,
+                        height: constraints.maxHeight * 0.45,
                         width: 10,
                         // color: Colors.purple,
                         child: Stack(
@@ -91,7 +92,12 @@ class Chart extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Text(e['day'].toString()),
+                      Container(
+                        height: constraints.maxHeight * 0.15,
+                        child: FittedBox(
+                          child: Text(e['day'].toString()),
+                        ),
+                      ),
                     ],
                   ),
                 );
@@ -99,7 +105,7 @@ class Chart extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

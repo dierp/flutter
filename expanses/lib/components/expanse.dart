@@ -36,11 +36,18 @@ class Expanse extends StatelessWidget {
             color: Colors.grey[600],
           ),
         ),
-        trailing: IconButton(
-          icon: Icon(Icons.delete),
-          color: Theme.of(context).errorColor,
-          onPressed: () => _removeExpanse(expanse.id),
-        ),
+        trailing: MediaQuery.of(context).size.width > 480
+            ? FlatButton.icon(
+                icon: Icon(Icons.delete),
+                textColor: Theme.of(context).errorColor,
+                onPressed: () => _removeExpanse(expanse.id),
+                label: Text('Delete'),
+              )
+            : IconButton(
+                icon: Icon(Icons.delete),
+                color: Theme.of(context).errorColor,
+                onPressed: () => _removeExpanse(expanse.id),
+              ),
       ),
     );
   }
