@@ -38,10 +38,10 @@ class Expanse extends StatelessWidget {
         ),
         trailing: MediaQuery.of(context).size.width > 480
             ? FlatButton.icon(
-                icon: Icon(Icons.delete),
+                icon: const Icon(Icons.delete),
                 textColor: Theme.of(context).errorColor,
                 onPressed: () => _removeExpanse(expanse.id),
-                label: Text('Delete'),
+                label: const Text('Delete'),
               )
             : IconButton(
                 icon: Icon(Icons.delete),
